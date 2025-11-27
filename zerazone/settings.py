@@ -75,11 +75,14 @@ WSGI_APPLICATION = 'zerazone.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': "django.db.backends.postgresql",
+        'NAME': "zerazone_website",
+        'USER': "zerazone_user",
+        'PASSWORD': "YourStrongPassword123!",
+        'HOST': "localhost",  # ← Changed to localhost
+        'PORT': 5432,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
