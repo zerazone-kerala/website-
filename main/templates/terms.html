@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block seo_meta %}
+<meta name="description" content="Terms and Conditions - Zerazone Final Year Projects">
+<meta name="keywords" content="terms, conditions, Zerazone, final year projects">
+{% endblock %}
+
+{% block content %}
+
+<!-- LOADER -->
+<div id="preloader">
+    <img class="preloader" src="{% static 'images/loader.gif' %}" alt="">
+</div>
+
+<div id="wrapper">
+
+    <!-- Page Title Section -->
+    <section class="section cb parallax" style="background: url('{% static 'images/pattern.png' %}') repeat center center rgba(0, 0, 0, 0.85); padding: 100px 0 80px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="page-title">
+                        <h3 style="color: #ffffff; font-size: 42px; margin-bottom: 15px;">Terms & Conditions</h3>
+                        <ol class="breadcrumb">
+                            <li><a href="{% url 'home' %}">Home</a></li>
+                            <li class="active">Terms & Conditions</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms Content Section -->
+    <section class="section" style="padding: 80px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div style="background: #ffffff; padding: 50px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        
+                        <p style="color: #666; font-size: 15px; margin-bottom: 30px;">
+                            <strong>Last Updated:</strong> {{ last_updated|default:"November 27, 2025" }}
+                        </p>
+
+                        <div class="terms-content" style="color: #555; font-size: 15px; line-height: 1.8;">
+                            
+                            <h3 style="color: #17cfbc; margin-top: 40px; margin-bottom: 20px; font-size: 22px;">1. Introduction</h3>
+                            <p>Welcome to Zerazone. These Terms and Conditions govern your use of our website and services. By accessing or using our services, you agree to be bound by these terms.</p>
+
+                            <h3 style="color: #17cfbc; margin-top: 40px; margin-bottom: 20px; font-size: 22px;">2. Services</h3>
+                            <p>Zerazone provides final year project guidance, source code, documentation, and related educational services for students. Our services include:</p>
+                            <ul style="margin-left: 20px; margin-bottom: 20px;">
+                                <li>Project source code and implementation</li>
+                                <li>Project documentation and reports</li>
+                                <li>PPT presentations</li>
+                                <li>Viva preparation support</li>
+                                <li>Technical guidance and consultation</li>
+                            </ul>
+
+                            <h3 style="color: #17cfbc; margin-top: 40px; margin-bottom: 20px; font-size: 22px;">3. User Responsibilities</h3>
+                            <p>By using our services, you agree to:</p>
+                            <ul style="margin-left: 20px; margin-bottom: 20px;">
+                                <li>Provide accurate and complete information</li>
+                                <li>Use the projects for educational purposes only</li>
+                                <li>Not resell or redistribute our materials</li>
+                                <li>Maintain confidentiality of access credentials</li>
+                                <li>Comply with your institution's academic integrity policies</li>
+                            </ul>
+
+                            <h3 style="color: #17cfbc; margin-top: 40px; margin-bottom: 20px; font-size: 22px;">4. Intellectual Property</h3>
+                            <p>All project materials, documentation, and source code provided by Zerazone remain our intellectual property. You are granted a limited, non-exclusive license to use these materials for your educational purposes only.</p>
+
+                            <h3 style="color: #17cfbc; margin-top: 40px; margin-bottom: 20px; font-size: 22px;">5. Payment Terms</h3>
+                            <p>Payment for projects and services must be made in advance. Prices are subject to change without notice. Refunds may be provided at our discretion based on the circumstances.</p>
+
+                            <h3 style="color: #17cfbc; margin-top: 40px; margin-bottom: 20px; font-size: 22px;">6. Delivery</h3>
+                            <p>We strive to deliver projects within the agreed timeframe. However, delivery times are estimates and may vary based on project complexity and workload.</p>
+
+                            <h3 style="color: #17cfbc; margin-top: 40px; margin-bottom: 20px; font-size: 22px;">7. Support</h3>
+                            <p>We provide technical support for our projects during the agreed support period. Support includes bug fixes, clarifications, and guidance for project implementation.</p>
+
+                            <h3 style="color: #17cfbc; margin-top: 40px; margin-bottom: 20px; font-size: 22px;">8. Limitation of Liability</h3>
+                            <p>Zerazone shall not be liable for any indirect, incidental, special, or consequential damages arising from the use of our services. Our liability is limited to the amount paid for the specific service.</p>
+
+                            <h3 style="color: #17cfbc; margin-top: 40px; margin-bottom: 20px; font-size: 22px;">9. Privacy</h3>
+                            <p>Your use of our services is also governed by our <a href="{% url 'privacy' %}" style="color: #17cfbc;">Privacy Policy</a>.</p>
+
+                            <h3 style="color: #17cfbc; margin-top: 40px; margin-bottom: 20px; font-size: 22px;">10. Modifications</h3>
+                            <p>We reserve the right to modify these terms at any time. Continued use of our services after changes constitutes acceptance of the modified terms.</p>
+
+                            <h3 style="color: #17cfbc; margin-top: 40px; margin-bottom: 20px; font-size: 22px;">11. Contact Information</h3>
+                            <p>For questions about these Terms and Conditions, please contact us:</p>
+                            <ul style="list-style: none; margin-left: 0; margin-bottom: 20px;">
+                                <li><i class="fa fa-phone" style="color: #17cfbc; margin-right: 10px;"></i> +91 9061643216</li>
+                                <li><i class="fa fa-envelope" style="color: #17cfbc; margin-right: 10px;"></i> zerazone2025@gmail.com</li>
+                                <li><i class="fa fa-globe" style="color: #17cfbc; margin-right: 10px;"></i> www.zerazone.com</li>
+                            </ul>
+
+                        </div>
+
+                        <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid #17cfbc; text-align: center;">
+                            <a href="{% url 'contact' %}" class="btn btn-primary" style="padding: 12px 30px; background: linear-gradient(135deg, #66bcea 0%, #0e5068 100%); border: none;">
+                                <i class="fa fa-envelope"></i> Contact Us for Clarifications
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<style>
+    .terms-content h3 {
+        position: relative;
+        padding-left: 15px;
+    }
+
+    .terms-content h3:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8px;
+        height: 20px;
+        width: 4px;
+        background: #17cfbc;
+    }
+
+    .terms-content ul {
+        margin-bottom: 20px;
+    }
+
+    .terms-content ul li {
+        margin-bottom: 10px;
+        padding-left: 10px;
+    }
+
+    .btn-primary {
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0e5068 0%, #66bcea 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(1, 186, 207, 0.3);
+    }
+</style>
+
+{% endblock content %}

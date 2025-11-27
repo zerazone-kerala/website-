@@ -1,0 +1,391 @@
+{% extends "base.html" %}
+{% load static %}
+      {% block content %}
+      
+      <div class="modal fade enquiry-modal" id="enquiry-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Quick Enquiry</h4>
+                        <p style="margin: 0; font-size: 14px; opacity: 0.9;">Fill in your details and we'll get back to you within 24 hours!</p>
+                    </div>
+                    <div class="modal-body">
+                        <form id="enquiry-form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="enquiry-name" name="from_name" placeholder="Your Name *" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" class="form-control" id="enquiry-phone" name="phone" placeholder="Your Phone Number *" pattern="[0-9]{10}" maxlength="10" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="enquiry-email" name="email" placeholder="Your Email (Optional)">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" id="enquiry-course" name="course" required>
+                                    <option value="">Select Your Course *</option>
+                                    <option value="B.Tech CSE">B.Tech CSE</option>
+                                    <option value="B.Tech IT">B.Tech IT</option>
+                                    <option value="MCA">MCA</option>
+                                    <option value="BCA">BCA</option>
+                                    <option value="M.Tech">M.Tech</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" id="enquiry-message" name="message" rows="3" placeholder="Your Project Requirements (Optional)"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-submit" id="submit-btn">
+                                <i class="fa fa-paper-plane"></i> Submit Enquiry
+                            </button>
+                            <div class="alert-success-custom" id="success-message">
+                                <i class="fa fa-check-circle"></i> Thank you! We'll contact you soon.
+                            </div>
+                            <div class="alert-error-custom" id="error-message">
+                                <i class="fa fa-exclamation-circle"></i> Something went wrong. Please try again.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- LOADER -->
+    <div id="preloader">
+        <img class="preloader" src="{% static 'images/loader.gif' %}" alt="">
+    </div><!-- end loader -->
+    <!-- END LOADER -->
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919061643216?text=Hi%20Zerazone,%20I%20would%20like%20to%20know%20more%20about%20your%20project%20services" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp">
+        <i class="fa fa-whatsapp whatsapp-icon"></i>
+    </a>
+
+    <div id="wrapper">
+
+        <!-- END # MODAL LOGIN -->
+
+        <!-- BEGIN # ENQUIRY MODAL -->
+  
+        <!-- END # ENQUIRY MODAL -->
+
+
+        <section id="home" class="video-section js-height-full">
+            <div class="overlay"></div>
+            <div class="home-text-wrapper relaive container">
+                <div class="home-message">
+                    <p>Quality Project Solutions in Kerala</p>
+                    <small>Transform your academic ideas into reality with Kerala's most trusted project center. We offer end-to-end support for B.Tech, M.Tech, MCA & Diploma projects featuring cutting-edge technologies, personalized mentoring, and comprehensive training – all at prices that won't break your budget.</small>
+                    <div class="btn-wrapper">
+                        <div class="text-center">
+                            <a href="#about-section" class="btn btn-primary wow slideInLeft">Explore Now</a> &nbsp;&nbsp;&nbsp;
+                            <a href="#" class="btn btn-default wow slideInRight" data-toggle="modal" data-target="#enquiry-modal">Enquiry</a>
+                        </div>
+                    </div><!-- end row -->
+                </div>
+            </div>
+            <div class="slider-bottom">
+                <span>Explore <i class="fa fa-angle-down"></i></span>
+            </div>
+        </section>
+
+        <section class="section" id="about-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 hidden-sm hidden-xs">
+                        <div class="custom-module">
+                            <img src="{% static 'images/zerazone1.jpg' %}" alt="Zerazone Project Center Kerala" class="img-responsive wow slideInLeft">
+                        </div><!-- end module -->
+                    </div><!-- end col -->
+                    <div class="col-md-8">
+                        <div class="custom-module p40l">
+                            <h2>Leading <mark>Project Development Center</mark> in Kerala<br>
+                            Empowering Students with Innovative Final Year<br>
+                            Projects and Expert Technical Guidance</h2>
+
+                            <p>We specialize in delivering high-quality final year projects for B.Tech, M.Tech, MCA, and Diploma students across Computer Science and IT streams. With experienced mentors, cutting-edge technologies, and comprehensive support, we help you turn academic requirements into impressive real-world solutions at affordable prices.</p>
+
+                            <hr class="invis">
+
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 first">
+                                    <ul class="check">
+                                        <li>IEEE Standard Projects</li>
+                                        <li>Live Project Training</li>
+                                        <li>Python & AI/ML Projects</li>
+                                        <li>Android Development</li>
+                                    </ul><!-- end check -->
+                                </div><!-- end col-lg-4 -->
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <ul class="check">
+                                        <li>Web Development</li>
+                                        <li>Data Science Projects</li>
+                                        <li>Cloud Computing</li>
+                                        <li>Expert Mentorship</li>
+                                    </ul><!-- end check -->    
+                                </div><!-- end col-lg-4 -->
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 last">
+                                    <ul class="check">
+                                        <li>Placement Assistance</li>
+                                        <li>Source Code Support</li>
+                                        <li>Project Presentation Help</li>
+                                        <li>Budget-Friendly Packages</li>
+                                    </ul><!-- end check -->
+                                </div><!-- end col-lg-4 --> 
+                            </div><!-- end row -->   
+
+                            <hr class="invis">
+
+                            <div class="btn-wrapper">
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#enquiry-modal">Explore Our Projects</a>
+                            </div>
+
+                        </div><!-- end module -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        <section class="section db p120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tagline-message text-center">
+                            <h3>Welcome to Kerala's Premier Computer Science & IT Project Development Center</h3>
+                            <p>Your one-stop destination for exceptional final year projects! We bring together industry-expert mentors, latest technologies including Python, Java, Machine Learning, Web Development, Android Apps, and IoT, along with comprehensive documentation and presentation support. Whether you're pursuing B.Tech CSE, IT, or MCA – we deliver innovative solutions that guarantee academic success without breaking your budget. Join hundreds of satisfied students who've achieved excellence with our guidance!</p>
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        <section class="section gb nopadtop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="box m30">
+                            <i class="flaticon-computer-tool-for-education"></i>
+                            <h4>Expert Guidance</h4>
+                            <p>Get personalized mentorship from industry experts with hands-on training in latest technologies and complete project support.</p>
+                            <a href="#" class="readmore" data-toggle="modal" data-target="#enquiry-modal">Read more</a>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-md-6">
+                        <div class="box m30">
+                            <i class="flaticon-monitor-tablet-and-smartohone"></i>
+                            <h4>All Domain Projects Available</h4>
+                            <p>Comprehensive project solutions across Python, Java, AI/ML, Data Science, Web Development, Android Apps and Cloud Computing for CSE, IT students.</p>
+                            <a href="#" class="readmore" data-toggle="modal" data-target="#enquiry-modal">Read more</a>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-md-3">
+                        <div class="box m30">
+                            <i class="flaticon-download-business-statistics-symbol-of-a-graphic"></i>
+                            <h4>Abstract & Diagram Support</h4>
+                            <p>Comprehensive abstract writing, system architecture diagrams, flowcharts, UML diagrams, and complete technical documentation support.</p>
+                            <a href="#" class="readmore" data-toggle="modal" data-target="#enquiry-modal">Read more</a>
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+
+                <hr class="invis">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box">
+                            <i class="flaticon-html5"></i> <i class="flaticon-css-3"></i>
+                            <h4>IEEE Standard Projects</h4>
+                            <p>Access to latest IEEE base papers and projects with cutting-edge technologies. All projects follow industry standards and academic requirements for guaranteed approval.</p>
+                            <a href="#" class="readmore" data-toggle="modal" data-target="#enquiry-modal">Read more</a>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-md-6">
+                        <div class="box">
+                            <i class="flaticon-html-coding"></i>
+                            <h4>Placement Assistance</h4>
+                            <p>Career guidance, resume building, interview preparation, and technical skill development to help you land your dream job after project completion.</p>
+                            <a href="#" class="readmore" data-toggle="modal" data-target="#enquiry-modal">Read more</a>
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        <section class="section db">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="stat-count">
+                            <h4 class="stat-timer">100</h4>
+                            <h3><i class="flaticon-black-graduation-cap-tool-of-university-student-for-head"></i> Successful Projects</h3>
+                            <p>Over 100+ final year projects delivered with 100% success rate across CSE & IT streams.</p>
+                        </div><!-- stat-count -->
+                    </div><!-- end col -->
+
+                    <div class="col-lg-4 col-md-4">
+                        <div class="stat-count">
+                            <h4 class="stat-timer">150</h4>
+                            <h3><i class="flaticon-online-course"></i> Happy Students</h3>
+                            <p>Empowering 150+ students annually with quality projects, expert guidance, and placement support.</p>
+                        </div><!-- stat-count -->
+                    </div><!-- end col -->
+
+                    <div class="col-lg-4 col-md-4">
+                        <div class="stat-count">
+                            <h4 class="stat-timer">20</h4>
+                            <h3><i class="flaticon-coffee-cup"></i> Technology Domains</h3>
+                            <p>Expertise in 20+ technology domains including AI/ML, Python, Java, Web Dev and Data Science.</p>
+                        </div><!-- stat-count -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h3>What Our Students Say</h3>
+                    <p>Don't just take our word for it! Here's what our successful students have to say about their experience with us and how we helped them achieve academic excellence.</p>
+                </div><!-- end title -->
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="box testimonial">
+                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_01.png' %}" alt="" class="img-circle"> Anjali Krishna - B.Tech CSE</strong></p>
+                            <p>Excellent service and support! The team was very professional and guided me throughout my project. Everything was delivered on time and the quality exceeded my expectations. Got top marks in my final year. Highly recommended!</p>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div><!-- end testimonial -->
+                    </div><!-- end col -->
+
+                    <div class="col-md-4">
+                        <div class="box testimonial">
+                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_02.png' %}" alt="" class="img-circle"> Athul - MCA</strong></p>
+                            <p>Best project center in Kerala! Very supportive team and affordable pricing. They understood my requirements perfectly and delivered exceptional work. My project was approved without any changes. Thank you for making my final year stress-free!</p>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div><!-- end testimonial -->
+                    </div><!-- end col -->
+
+                    <div class="col-md-4">
+                        <div class="box testimonial">
+                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_03.png' %}" alt="" class="img-circle"> Priya - BCA</strong></p>
+                            <p>Outstanding quality and service! Professional approach from start to finish. The team was always available to clarify my doubts and provided excellent guidance. Got distinction marks and great feedback from my guide. Worth every penny!</p>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div><!-- end testimonial -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+      
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <!-- Custom JavaScript for Form Handling -->
+    <script type="text/javascript">
+        // Initialize EmailJS with your Public Key
+        (function(){
+            emailjs.init("97W5v3XVuNFJdDyZ0"); // Replace with your EmailJS Public Key
+        })();
+
+        // Enquiry Form Submission
+        document.getElementById('enquiry-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Disable submit button and show loading
+            var submitBtn = document.getElementById('submit-btn');
+            var originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
+            
+            // Send email using EmailJS
+            emailjs.sendForm('service_0qvcp89', 'template_zkxi9aq', this)
+                .then(function() {
+                    // Success
+                    document.getElementById('success-message').style.display = 'block';
+                    document.getElementById('error-message').style.display = 'none';
+                    document.getElementById('enquiry-form').reset();
+                    
+                    // Re-enable button
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    
+                    // Hide success message and modal after 3 seconds
+                    setTimeout(function() {
+                        document.getElementById('success-message').style.display = 'none';
+                        $('#enquiry-modal').modal('hide');
+                    }, 3000);
+                    
+                }, function(error) {
+                    // Error
+                    console.log('FAILED...', error);
+                    document.getElementById('error-message').style.display = 'block';
+                    document.getElementById('success-message').style.display = 'none';
+                    
+                    // Re-enable button
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                });
+        });
+
+        // Newsletter Form Submission
+        document.getElementById('newsletter-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            var email = document.getElementById('newsletter-email').value;
+            
+            // Send newsletter subscription via EmailJS
+            emailjs.send('service_0qvcp89', 'template_zkxi9aq', {
+                from_name: 'Newsletter Subscriber',
+                email: email,
+                message: 'Newsletter subscription request'
+            })
+            .then(function(response) {
+                alert('Thank you for subscribing!');
+                document.getElementById('newsletter-email').value = '';
+            }, function(error) {
+                alert('Subscription failed. Please try again.');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#' && !this.hasAttribute('data-toggle')) {
+                    e.preventDefault();
+                    var target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+
+      {% endblock content %}

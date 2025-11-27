@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block seo_meta %}
+<meta name="description" content="Browse our extensive collection of final year projects for B.Tech CSE, IT, MCA students. Django, MEAN stack, Machine Learning, and more project topics.">
+<meta name="keywords" content="final year projects, BCA projects, BTech projects, MCA projects, project topics, Django projects, Machine Learning projects">
+<meta name="author" content="Zerazone">
+{% endblock %}
+
+{% block og_meta %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zerazone">
+<meta property="og:title" content="Final Year Project Topics - Zerazone">
+<meta property="og:description" content="Explore 50+ project topics for your final year. Expert guidance and complete support.">
+<meta property="og:url" content="https://www.zerazone.com/projects">
+<meta property="og:image" content="https://www.zerazone.com/static/images/logo1.png">
+{% endblock %}
+
+{% block content %}
+
+<!-- LOADER -->
+<div id="preloader">
+    <img class="preloader" src="{% static 'images/loader.gif' %}" alt="">
+</div>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/919061643216?text=Hi%20Zerazone,%20I%20would%20like%20to%20know%20more%20about%20your%20project%20services" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp">
+    <i class="fa fa-whatsapp whatsapp-icon"></i>
+</a>
+
+<div id="wrapper">
+
+    <!-- Page Title Section -->
+    <section class="section cb parallax" style="background: url('{% static 'images/pattern.png' %}') repeat center center rgba(0, 0, 0, 0.85); padding: 100px 0 80px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="page-title">
+                        <h3 style="color: #ffffff; font-size: 42px; margin-bottom: 15px;">Our Project Topics</h3>
+                        <ol class="breadcrumb">
+                            <li><a href="{% url 'home' %}">Home</a></li>
+                            <li class="active">Projects</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>Explore Our Project Collection</h3>
+                <p>Choose from our extensive range of final year project topics. Click on any project to view details.</p>
+                {% if projects %}
+                <p style="color: #777; margin-top: 10px;">
+                    <i class="fa fa-folder-open"></i> Showing {{ projects.start_index }} - {{ projects.end_index }} of {{ projects.paginator.count }} projects
+                </p>
+                {% endif %}
+            </div>
+            <hr class="invis">
+
+            {% if projects %}
+                <div class="row">
+                    {% for project in projects %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="course-box" style="margin-bottom: 30px; border-radius: 8px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: all 0.3s ease; cursor: pointer;" onclick="window.location.href='{% url 'project_detail' project.pk %}'">
+                            <div class="course-content" style="padding: 25px; background: #ffffff; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div>
+                                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #333; line-height: 1.4; min-height: 50px;">
+                                        <a href="{% url 'project_detail' project.pk %}" style="color: #333; text-decoration: none;">
+                                            {{ project.title }}
+                                        </a>
+                                    </h3>
+                                    <p style="color: #777; font-size: 13px; margin-bottom: 15px;">
+                                        <i class="fa fa-calendar"></i> {{ project.created_at|date:"M d, Y" }}
+                                    </p>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary btn-sm" style="padding: 8px 20px;">
+                                        View Details <i class="fa fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                {% if projects.has_other_pages %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav aria-label="Page navigation" style="margin-top: 30px;">
+                            <ul class="pagination justify-content-center" style="display: flex; justify-content: center; flex-wrap: wrap;">
+                                
+                                {% if projects.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=1" aria-label="First">
+                                            <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ projects.previous_page_number }}" aria-label="Previous">
+                                            <span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link"><i class="fa fa-angle-double-left"></i></span>
+                                    </li>
+                                    <li class="page-item disabled">
+                                        <span class="page-link"><i class="fa fa-angle-left"></i></span>
+                                    </li>
+                                {% endif %}
+
+                                {% for num in projects.paginator.page_range %}
+                                    {% if projects.number == num %}
+                                        <li class="page-item active">
+                                            <span class="page-link">{{ num }}</span>
+                                        </li>
+                                    {% elif num > projects.number|add:'-3' and num < projects.number|add:'3' %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if projects.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ projects.next_page_number }}" aria-label="Next">
+                                            <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ projects.paginator.num_pages }}" aria-label="Last">
+                                            <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link"><i class="fa fa-angle-right"></i></span>
+                                    </li>
+                                    <li class="page-item disabled">
+                                        <span class="page-link"><i class="fa fa-angle-double-right"></i></span>
+                                    </li>
+                                {% endif %}
+
+                            </ul>
+                        </nav>
+                        
+                        <!-- Page Info -->
+                        <div class="text-center" style="margin-top: 15px; color: #777;">
+                            <p>Page {{ projects.number }} of {{ projects.paginator.num_pages }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+            {% else %}
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="box" style="padding: 60px 20px;">
+                            <i class="fa fa-folder-open" style="font-size: 60px; color: #ddd; margin-bottom: 20px;"></i>
+                            <h4 style="color: #999; margin-bottom: 20px;">No Projects Available</h4>
+                            <p style="color: #777;">Projects will be added soon. Please check back later or contact us for custom project requirements.</p>
+                            <a href="{% url 'contact' %}" class="btn btn-primary" style="margin-top: 20px;">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section db p120">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tagline-message text-center">
+                        <h3>Can't Find What You're Looking For?</h3>
+                        <p style="color: #ffffff; font-size: 18px; margin: 20px 0;">We can help you with custom project ideas tailored to your requirements!</p>
+                        <a href="#" data-toggle="modal" data-target="#enquiry-modal" class="btn btn-primary" style="margin-right: 10px;">
+                            <i class="fa fa-paper-plane"></i> Request Custom Project
+                        </a>
+                        <a href="{% url 'contact' %}" class="btn btn-default">
+                            <i class="fa fa-phone"></i> Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<style>
+    .course-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+    }
+
+    .course-box h3 a:hover {
+        color: #01bacf !important;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #66bcea 0%, #0e5068 100%);
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0e5068 0%, #66bcea 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(1, 186, 207, 0.3);
+    }
+
+    /* Pagination Styles */
+    .pagination {
+        margin: 20px 0;
+    }
+
+    .pagination .page-item {
+        margin: 0 3px;
+    }
+
+    .pagination .page-link {
+        color: #333;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 8px 15px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .pagination .page-link:hover {
+        background: linear-gradient(135deg, #66bcea 0%, #0e5068 100%);
+        color: #fff;
+        border-color: #01bacf;
+        transform: translateY(-2px);
+    }
+
+    .pagination .page-item.active .page-link {
+        background: linear-gradient(135deg, #66bcea 0%, #0e5068 100%);
+        color: #fff;
+        border-color: #01bacf;
+        font-weight: bold;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        color: #999;
+        background-color: #f5f5f5;
+        border-color: #ddd;
+        cursor: not-allowed;
+    }
+
+    .pagination .page-item.disabled .page-link:hover {
+        transform: none;
+        background-color: #f5f5f5;
+        color: #999;
+    }
+
+    @media (max-width: 768px) {
+        .course-box {
+            margin-bottom: 20px;
+        }
+
+        .pagination .page-link {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+
+        .pagination .page-item {
+            margin: 0 2px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .pagination {
+            font-size: 12px;
+        }
+
+        .pagination .page-link {
+            padding: 5px 10px;
+        }
+    }
+</style>
+
+<script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            if (this.getAttribute('href') !== '#' && !this.hasAttribute('data-toggle')) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+
+    // Scroll to top when clicking pagination
+    document.querySelectorAll('.pagination a').forEach(link => {
+        link.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+{% endblock content %}

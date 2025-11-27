@@ -1,0 +1,423 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block seo_meta %}
+<meta name="description" content="Contact Zerazone - Get in touch with Kerala's leading final year project center. Call, email, or visit us for expert guidance on your B.Tech, MCA projects.">
+<meta name="keywords" content="contact zerazone, project center Kerala contact, final year project help, Zerazone address, project center phone number">
+<meta name="author" content="Zerazone">
+{% endblock %}
+
+{% block og_meta %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zerazone">
+<meta property="og:title" content="Contact Zerazone - Get Expert Project Guidance">
+<meta property="og:description" content="Reach out to Zerazone for professional final year project assistance. Available Mon-Sat, 9 AM - 7 PM.">
+<meta property="og:url" content="https://www.zerazone.com/contact">
+<meta property="og:image" content="https://www.zerazone.com/static/images/logo1.png">
+{% endblock %}
+
+{% block content %}
+
+<!-- Enquiry Modal -->
+<div class="modal fade enquiry-modal" id="enquiry-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Quick Enquiry</h4>
+                <p style="margin: 0; font-size: 14px; opacity: 0.9;">Fill in your details and we'll get back to you within 24 hours!</p>
+            </div>
+            <div class="modal-body">
+                <form id="enquiry-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="enquiry-name" name="from_name" placeholder="Your Name *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" id="enquiry-phone" name="phone" placeholder="Your Phone Number *" pattern="[0-9]{10}" maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="enquiry-email" name="email" placeholder="Your Email (Optional)">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="enquiry-course" name="course" required>
+                            <option value="">Select Your Course *</option>
+                            <option value="B.Tech CSE">B.Tech CSE</option>
+                            <option value="B.Tech IT">B.Tech IT</option>
+                            <option value="MCA">MCA</option>
+                            <option value="BCA">BCA</option>
+                            <option value="M.Tech">M.Tech</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="enquiry-message" name="message" rows="3" placeholder="Your Project Requirements (Optional)"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-submit" id="submit-btn">
+                        <i class="fa fa-paper-plane"></i> Submit Enquiry
+                    </button>
+                    <div class="alert-success-custom" id="success-message">
+                        <i class="fa fa-check-circle"></i> Thank you! We'll contact you soon.
+                    </div>
+                    <div class="alert-error-custom" id="error-message">
+                        <i class="fa fa-exclamation-circle"></i> Something went wrong. Please try again.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LOADER -->
+<div id="preloader">
+    <img class="preloader" src="{% static 'images/loader.gif' %}" alt="">
+</div>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/919061643216?text=Hi%20Zerazone,%20I%20would%20like%20to%20know%20more%20about%20your%20project%20services" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp">
+    <i class="fa fa-whatsapp whatsapp-icon"></i>
+</a>
+
+<div id="wrapper">
+
+    <!-- Page Title Section -->
+    <section class="section cb parallax" style="background: url('{% static 'images/pattern.png' %}') repeat center center rgba(0, 0, 0, 0.85); padding: 100px 0 80px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="page-title">
+                        <h3 style="color: #ffffff; font-size: 42px; margin-bottom: 15px;">Contact Us</h3>
+                        <ol class="breadcrumb">
+                            <li><a href="{% url 'home' %}">Home</a></li>
+                            <li class="active">Contact</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>Get In Touch With Us</h3>
+                <p>We're here to help you succeed in your final year project. Reach out to us through any of these channels</p>
+            </div>
+            <hr class="invis">
+            <div class="row">
+                <!-- Phone -->
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="small-box text-center">
+                        <i class="fa fa-phone"></i>
+                        <h4>Call Us</h4>
+                        <small>Available Mon-Sat</small>
+                        <small>9:00 AM - 8:00 PM</small>
+                        <a href="tel:+919061643216">+91 9061643216</a>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="small-box text-center">
+                        <i class="fa fa-envelope"></i>
+                        <h4>Email Us</h4>
+                        <small>Send us your queries</small>
+                        <small>We'll respond within 24 hours</small>
+                        <a href="mailto:zerazone2025@gmail.com">zerazone2025@gmail.com</a>
+                    </div>
+                </div>
+
+                <!-- WhatsApp -->
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="small-box text-center">
+                        <i class="fa fa-whatsapp"></i>
+                        <h4>WhatsApp Chat</h4>
+                        <small>Quick responses</small>
+                        <small>For urgent queries</small>
+                        <a href="https://wa.me/919061643216?text=Hi%20Zerazone,%20I%20would%20like%20to%20know%20more%20about%20your%20project%20services" target="_blank">Start Chat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="section gb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2">
+                    <div class="big-contact-form" style="background-color: #ffffff; padding: 50px; border-radius: 6px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div class="section-title text-center">
+                            <h3 style="margin-bottom: 10px;">Send Us a Message</h3>
+                            <p>Fill out the form below and we'll get back to you as soon as possible</p>
+                        </div>
+                        <hr class="invis">
+                        <form id="contact-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="contact-name" name="from_name" placeholder="Your Name *" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" id="contact-email" name="email" placeholder="Your Email *" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="tel" class="form-control" id="contact-phone" name="phone" placeholder="Your Phone Number *" pattern="[0-9]{10}" maxlength="10" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="contact-course" name="course" required>
+                                        <option value="">Select Your Course *</option>
+                                        <option value="B.Tech CSE">B.Tech CSE</option>
+                                        <option value="B.Tech IT">B.Tech IT</option>
+                                        <option value="B.Tech ECE">B.Tech ECE</option>
+                                        <option value="B.Tech EEE">B.Tech EEE</option>
+                                        <option value="MCA">MCA</option>
+                                        <option value="BCA">BCA</option>
+                                        <option value="M.Tech">M.Tech</option>
+                                        <option value="M.Sc">M.Sc Computer Science</option>
+                                        <option value="Diploma">Diploma</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select class="form-control" id="contact-domain" name="project_domain">
+                                        <option value="">Project Domain (Optional)</option>
+                                        <option value="Python">Python</option>
+                                        <option value="Machine Learning">Machine Learning</option>
+                                        <option value="Data Science">Data Science</option>
+                                        <option value="Web Development">Web Development</option>
+                                        <option value="Android Development">Android Development</option>
+                                        <option value="Java">Java</option>
+                                        <option value="AI Projects">AI Projects</option>
+                                        <option value="Cloud Computing">Cloud Computing</option>
+                                        <option value="Blockchain">Blockchain</option>
+                                        <option value="IoT">IoT</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <textarea class="form-control" id="contact-message" name="message" placeholder="Tell us about your project requirements or any questions you have..." required></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-primary" id="contact-submit-btn" style="margin-top: 10px; padding: 15px 50px;">
+                                        <i class="fa fa-paper-plane"></i> Send Message
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert-success-custom" id="contact-success-message" style="margin-top: 20px;">
+                                        <i class="fa fa-check-circle"></i> Thank you for contacting us! We'll get back to you within 24 hours.
+                                    </div>
+                                    <div class="alert-error-custom" id="contact-error-message" style="margin-top: 20px;">
+                                        <i class="fa fa-exclamation-circle"></i> Oops! Something went wrong. Please try again or call us directly.
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Office Hours & Location -->
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="box" style="height: 100%;">
+                        <i class="fa fa-clock-o" style="font-size: 46px; color: #01bacf;"></i>
+                        <h4>Office Hours</h4>
+                        <p><strong>Monday - Friday:</strong> 9:00 AM - 7:00 PM</p>
+                        <p><strong>Saturday:</strong> 9:00 AM - 5:00 PM</p>
+                        <p><strong>Sunday:</strong> Closed</p>
+                        <hr class="invis">
+                        <p style="margin-bottom: 0;"><strong>Note:</strong> We're also available for online consultations and weekend appointments by prior arrangement.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <div class="box" style="height: 100%;">
+                        <i class="fa fa-map-marker" style="font-size: 46px; color: #01bacf;"></i>
+                        <h4>Visit Our Office</h4>
+                        <p><strong>Zerazone Technologies</strong></p>
+                        <p>Final Year Project Center<br>
+                        Kerala, India</p>
+                        <hr class="invis">
+                        <p><strong>Public Transport:</strong> Easily accessible by bus and metro</p>
+                        <p style="margin-bottom: 0;"><strong>Parking:</strong> Available for students and visitors</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section gb">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>Frequently Asked Questions</h3>
+                <p>Quick answers to common questions about our services</p>
+            </div>
+            <hr class="invis">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="box">
+                        <h4 style="color: #01bacf;"><i class="fa fa-question-circle"></i> How long does it take to complete a project?</h4>
+                        <p>Project duration varies based on complexity, typically ranging from 2-4 weeks. We work according to your timeline and academic requirements.</p>
+                    </div>
+                    <div class="box">
+                        <h4 style="color: #01bacf;"><i class="fa fa-question-circle"></i> Do you provide online training?</h4>
+                        <p>Yes! We offer both online and offline training modes. You can learn from anywhere with our flexible online sessions.</p>
+                    </div>
+                    <div class="box">
+                        <h4 style="color: #01bacf;"><i class="fa fa-question-circle"></i> What is included in the project package?</h4>
+                        <p>Complete source code, documentation, presentation slides, project report, and viva preparation support are all included.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <div class="box">
+                        <h4 style="color: #01bacf;"><i class="fa fa-question-circle"></i> Can I choose my own project idea?</h4>
+                        <p>Absolutely! You can either select from our extensive project list or bring your own innovative idea. We'll guide you through the entire process.</p>
+                    </div>
+                    <div class="box">
+                        <h4 style="color: #01bacf;"><i class="fa fa-question-circle"></i> What are your payment options?</h4>
+                        <p>We offer flexible payment plans including installments. Multiple payment methods are accepted for your convenience.</p>
+                    </div>
+                    <div class="box">
+                        <h4 style="color: #01bacf;"><i class="fa fa-question-circle"></i> Do you provide post-project support?</h4>
+                        <p>Yes, we provide ongoing support even after project completion to help you with any queries during your viva or presentation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section db p120">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tagline-message text-center">
+                        <h3>Still Have Questions?</h3>
+                        <p style="color: #ffffff; font-size: 18px; margin: 20px 0;">Don't hesitate to reach out! Our team is ready to help you with your project needs.</p>
+                        <a href="tel:+919061643216" class="btn btn-primary" style="margin-right: 10px;"><i class="fa fa-phone"></i> Call Now</a>
+                        <a href="https://wa.me/919061643216?text=Hi%20Zerazone,%20I%20would%20like%20to%20know%20more%20about%20your%20project%20services" class="btn btn-default" target="_blank"><i class="fa fa-whatsapp"></i> WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script type="text/javascript">
+    // Initialize EmailJS
+    (function(){
+        emailjs.init("97W5v3XVuNFJdDyZ0");
+    })();
+
+    // Enquiry Modal Form Submission
+    document.getElementById('enquiry-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        var submitBtn = document.getElementById('submit-btn');
+        var originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
+        
+        emailjs.sendForm('service_0qvcp89', 'template_zkxi9aq', this)
+            .then(function() {
+                document.getElementById('success-message').style.display = 'block';
+                document.getElementById('error-message').style.display = 'none';
+                document.getElementById('enquiry-form').reset();
+                
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                
+                setTimeout(function() {
+                    document.getElementById('success-message').style.display = 'none';
+                    $('#enquiry-modal').modal('hide');
+                }, 3000);
+                
+            }, function(error) {
+                console.log('FAILED...', error);
+                document.getElementById('error-message').style.display = 'block';
+                document.getElementById('success-message').style.display = 'none';
+                
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            });
+    });
+
+    // Contact Page Form Submission
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        var submitBtn = document.getElementById('contact-submit-btn');
+        var originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
+        
+        emailjs.sendForm('service_0qvcp89', 'template_zkxi9aq', this)
+            .then(function() {
+                document.getElementById('contact-success-message').style.display = 'block';
+                document.getElementById('contact-error-message').style.display = 'none';
+                document.getElementById('contact-form').reset();
+                
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                
+                // Scroll to success message
+                document.getElementById('contact-success-message').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                setTimeout(function() {
+                    document.getElementById('contact-success-message').style.display = 'none';
+                }, 6000);
+                
+            }, function(error) {
+                console.log('FAILED...', error);
+                document.getElementById('contact-error-message').style.display = 'block';
+                document.getElementById('contact-success-message').style.display = 'none';
+                
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                
+                // Scroll to error message
+                document.getElementById('contact-error-message').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            if (this.getAttribute('href') !== '#' && !this.hasAttribute('data-toggle')) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+{% endblock content %}
