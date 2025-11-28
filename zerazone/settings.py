@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -76,10 +77,12 @@ WSGI_APPLICATION = 'zerazone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': "django.db.backends.postgresql",
-        'NAME': "zerazone_website",
-        'USER': "zerazone_user",
-        'PASSWORD': "YourStrongPassword123!",
-        'HOST': "localhost",  # ← Changed to localhost
+        'NAME': "mydb",  # ← Changed to match docker-compose
+        'USER': "postgres",
+        'PASSWORD': "your_strong_password_here",  # ← Use the same password from docker-compose
+        'HOST': "68.233.118.109",  # Use localhost if Django is on same server
+        # OR use your server's public IP if Django is on different server
+        # 'HOST': "your.server.ip.address",
         'PORT': 5432,
     }
 }
@@ -118,10 +121,9 @@ import os
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
