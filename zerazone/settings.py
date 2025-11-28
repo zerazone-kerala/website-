@@ -77,12 +77,10 @@ WSGI_APPLICATION = 'zerazone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': "django.db.backends.postgresql",
-        'NAME': "mydb",  # ← Changed to match docker-compose
+        'NAME': "mydb", 
         'USER': "postgres",
-        'PASSWORD': "your_strong_password_here",  # ← Use the same password from docker-compose
-        'HOST': "68.233.118.109",  # Use localhost if Django is on same server
-        # OR use your server's public IP if Django is on different server
-        # 'HOST': "your.server.ip.address",
+        'PASSWORD': "your_strong_password_here",  
+        'HOST': "68.233.118.109",  
         'PORT': 5432,
     }
 }

@@ -60,10 +60,11 @@ from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT,TA_RIGHT
 from io import BytesIO
 import os
 from datetime import datetime
+from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 
 
-
+@csrf_exempt
 @require_POST
 def download_project_abstract(request):
     project_id = request.POST.get('project_id')
@@ -291,3 +292,6 @@ def download_project_abstract(request):
     response.write(pdf)
     
     return response
+
+
+
