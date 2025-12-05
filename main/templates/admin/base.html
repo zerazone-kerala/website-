@@ -1,0 +1,260 @@
+{% load i18n static %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/modern-admin.css" %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+{% block extrastyle %}{% endblock %}
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}">{% endif %}
+{% block extrahead %}{% endblock %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now "Z" %}">
+    <div class="admin-wrapper">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <!-- Mobile Menu Toggle -->
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" type="button">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    {% block branding %}{% endblock %}
+                </div>
+                <div class="header-actions">
+                    {% if user.is_authenticated %}
+                    <div class="user-menu">
+                        <div class="user-info" id="userInfoToggle">
+                            <i class="fas fa-user-circle"></i>
+                            <span class="username">{{ user.get_username }}</span>
+                            <i class="fas fa-chevron-down user-chevron"></i>
+                        </div>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="{% url 'admin:password_change' %}">
+                                <i class="fas fa-key"></i> {% trans 'Change password' %}
+                            </a>
+                            <a href="{% url 'admin:logout' %}">
+                                <i class="fas fa-sign-out-alt"></i> {% trans 'Log out' %}
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="admin-container">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar" id="adminSidebar">
+                <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close menu" type="button">
+                    <i class="fas fa-times"></i>
+                </button>
+                <nav class="admin-nav">
+                    {% block nav-global %}
+                    {% if user.is_staff %}
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="{% url 'admin:index' %}" class="nav-link">
+                                <i class="fas fa-home"></i>
+                                <span>{% trans 'Home' %}</span>
+                            </a>
+                        </li>
+                        <li class="nav-group">
+                            <div class="nav-group-header">
+                                <i class="fas fa-folder"></i>
+                                <span>{% trans 'Main' %}</span>
+                            </div>
+                            <ul class="nav-submenu">
+                                <li>
+                                    <a href="{% url 'admin:main_project_changelist' %}" class="nav-link">
+                                        <i class="fas fa-circle"></i>
+                                        <span>{% trans 'Projects' %}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'admin:main_downloadrecord_changelist' %}" class="nav-link">
+                                        <i class="fas fa-circle"></i>
+                                        <span>{% trans 'Download Records' %}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    {% endif %}
+                    {% endblock %}
+                </nav>
+            </aside>
+
+            <!-- Content -->
+            <main class="admin-content">
+                {% if not is_popup %}
+                {% block breadcrumbs %}
+                <div class="breadcrumbs">
+                    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+                    {% if title %} &rsaquo; {{ title }}{% endif %}
+                </div>
+                {% endblock %}
+                {% endif %}
+
+                {% block messages %}
+                {% if messages %}
+                <ul class="messagelist">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endblock %}
+
+                <!-- Content Block -->
+                <div class="content-wrapper">
+                    {% block content_title %}{% if title %}<h1 class="content-title">{{ title }}</h1>{% endif %}{% endblock %}
+                    {% block content %}{% endblock %}
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Backdrop for mobile -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <script>
+        // Mobile menu toggle and responsive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const sidebar = document.getElementById('adminSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const userInfoToggle = document.getElementById('userInfoToggle');
+            const userMenu = document.querySelector('.user-menu');
+            const userDropdown = document.getElementById('userDropdown');
+
+            function toggleSidebar() {
+                const isActive = sidebar.classList.contains('active');
+                sidebar.classList.toggle('active');
+                backdrop.classList.toggle('active');
+                document.body.classList.toggle('sidebar-open');
+                
+                if (mobileMenuToggle) {
+                    if (isActive) {
+                        mobileMenuToggle.classList.remove('active');
+                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    } else {
+                        mobileMenuToggle.classList.add('active');
+                        mobileMenuToggle.setAttribute('aria-expanded', 'true');
+                    }
+                }
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('active');
+                backdrop.classList.remove('active');
+                document.body.classList.remove('sidebar-open');
+                if (mobileMenuToggle) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                }
+            }
+
+            // Mobile menu toggle
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleSidebar();
+                });
+            }
+
+            // Sidebar close button
+            const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+            if (sidebarCloseBtn) {
+                sidebarCloseBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    closeSidebar();
+                });
+            }
+
+            // Backdrop click
+            if (backdrop) {
+                backdrop.addEventListener('click', closeSidebar);
+            }
+
+            // User menu toggle (mobile)
+            if (userInfoToggle && window.innerWidth <= 768) {
+                userInfoToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userMenu.classList.toggle('active');
+                });
+            }
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                // Close sidebar on mobile when clicking outside
+                if (window.innerWidth <= 768) {
+                    if (sidebar && sidebar.classList.contains('active')) {
+                        if (!sidebar.contains(e.target) && 
+                            !mobileMenuToggle.contains(e.target) && 
+                            !backdrop.contains(e.target)) {
+                            closeSidebar();
+                        }
+                    }
+                }
+
+                // Close user dropdown when clicking outside
+                if (userMenu && userMenu.classList.contains('active')) {
+                    if (!userMenu.contains(e.target)) {
+                        userMenu.classList.remove('active');
+                    }
+                }
+            });
+
+            // Close sidebar when clicking on nav links (mobile)
+            if (sidebar) {
+                const navLinks = sidebar.querySelectorAll('.nav-link');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        if (window.innerWidth <= 768) {
+                            closeSidebar();
+                        }
+                    });
+                });
+            }
+
+            // Handle window resize
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                    if (window.innerWidth > 768) {
+                        closeSidebar();
+                        if (userMenu) {
+                            userMenu.classList.remove('active');
+                        }
+                    }
+                }, 250);
+            });
+
+            // Prevent body scroll when sidebar is open on mobile
+            const observer = new MutationObserver(function(mutations) {
+                if (document.body.classList.contains('sidebar-open')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        });
+    </script>
+
+    {% block footer %}<div id="footer"></div>{% endblock %}
+    {% block scripts %}{% endblock %}
+</body>
+</html>
+

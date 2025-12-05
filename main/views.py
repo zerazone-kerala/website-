@@ -295,3 +295,82 @@ def download_project_abstract(request):
 
 
 
+
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView, CreateView
+from django.urls import reverse_lazy
+from .forms import LoginForm, ProjectForm
+import csv
+
+class CustomLoginView(LoginView):
+    template_name = 'main/admin_login.html'
+    authentication_form = LoginForm
+    redirect_authenticated_user = True
+    
+    def get_success_url(self):
+        return reverse_lazy('custom_dashboard')
+
+@method_decorator(staff_member_required, name='dispatch')
+class DashboardView(TemplateView):
+    template_name = 'main/dashboard.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_projects'] = Project.objects.count()
+        context['total_downloads'] = DownloadRecord.objects.count()
+        # Keep recent items for the overview dashboard
+        context['recent_projects'] = Project.objects.order_by('-created_at')[:5]
+        context['recent_downloads'] = DownloadRecord.objects.order_by('-downloaded_at')[:5]
+        return context
+
+@method_decorator(staff_member_required, name='dispatch')
+class AdminProjectListView(TemplateView):
+    template_name = 'main/admin_projects.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['projects'] = Project.objects.order_by('-created_at')
+        return context
+
+@method_decorator(staff_member_required, name='dispatch')
+class AdminDownloadListView(TemplateView):
+    template_name = 'main/admin_downloads.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['downloads'] = DownloadRecord.objects.order_by('-downloaded_at')
+        return context
+
+@method_decorator(staff_member_required, name='dispatch')
+class CreateProjectView(CreateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = 'main/create_project.html'
+    success_url = reverse_lazy('admin_projects') # Redirect to project list
+    
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+@staff_member_required
+def export_records_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="download_records.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow(['Name', 'Email', 'Phone', 'College', 'Project', 'Date'])
+    
+    records = DownloadRecord.objects.all().select_related('project')
+    for record in records:
+        writer.writerow([
+            record.name,
+            record.email,
+            record.phone,
+            record.college,
+            record.project.title,
+            record.downloaded_at.strftime("%Y-%m-%d %H:%M:%S")
+        ])
+        
+    return response

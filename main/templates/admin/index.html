@@ -1,0 +1,163 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="dashboard-grid">
+    {% if app_list %}
+        {% for app in app_list %}
+        <div class="dashboard-app-card">
+            <div class="app-card-header">
+                <i class="fas fa-{{ app.app_label|slice:":1"|lower }}"></i>
+                <h2>{{ app.name }}</h2>
+            </div>
+            <div class="app-card-body">
+                <ul class="app-model-list">
+                    {% for model in app.models %}
+                    <li class="app-model-item">
+                        <a href="{{ model.admin_url }}" class="model-link">
+                            <i class="fas fa-circle"></i>
+                            <span class="model-name">{{ model.name }}</span>
+                            {% if model.add_url %}
+                            <a href="{{ model.add_url }}" class="add-link" title="{% trans 'Add' %}">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                            {% endif %}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <p>{% trans "You don't have permission to view or edit anything." %}</p>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.dashboard-app-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.dashboard-app-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.app-card-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: var(--text-white);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.app-card-header i {
+    font-size: 1.5rem;
+}
+
+.app-card-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.app-card-body {
+    padding: 1rem;
+}
+
+.app-model-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.app-model-item {
+    margin-bottom: 0.5rem;
+}
+
+.model-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition);
+    position: relative;
+}
+
+.model-link:hover {
+    background-color: var(--bg-hover);
+    color: var(--primary-color);
+}
+
+.model-link i {
+    font-size: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.model-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.add-link {
+    padding: 0.25rem 0.5rem;
+    background: var(--secondary-color);
+    color: var(--text-white);
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    transition: var(--transition);
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.model-link:hover .add-link {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.add-link:hover {
+    background: #14b8a6;
+    transform: scale(1.1);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-secondary);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+</style>
+{% endblock %}
+

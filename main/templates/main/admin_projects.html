@@ -1,0 +1,51 @@
+{% extends 'main/base_admin.html' %}
+
+{% block title %}Projects | Zerazone{% endblock %}
+
+{% block content %}
+<header
+    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; animation: fadeIn 0.6s ease-out;">
+    <div>
+        <h1 class="page-title" style="font-size: 1.75rem; font-weight: 700; color: var(--text-main); margin: 0;">
+            Projects</h1>
+        <p style="margin: 5px 0 0; color: var(--text-secondary);">Manage your project portfolio.</p>
+    </div>
+    <a href="{% url 'create_project' %}" class="btn-primary">+ Create New Project</a>
+</header>
+
+<div class="card">
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                <tr>
+                    <td style="font-weight: 600; color: var(--primary);">{{ project.title }}</td>
+                    <td style="max-width: 300px; white-space: normal;">{{
+                        project.description|truncatechars:100 }}</td>
+                    <td>{{ project.created_at|date:"M d, Y" }}</td>
+                    <td>
+                        <a href="{% url 'project_detail' project.pk %}" target="_blank"
+                            style="color: var(--secondary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">View
+                            Live ↗</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                        No projects found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

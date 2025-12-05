@@ -1,0 +1,98 @@
+{% extends 'main/base_admin.html' %}
+
+{% block title %}Dashboard | Zerazone{% endblock %}
+
+{% block content %}
+<header style="margin-bottom: 2.5rem; animation: fadeIn 0.6s ease-out;">
+    <h1 class="page-title" style="font-size: 1.75rem; font-weight: 700; color: var(--text-main); margin: 0;">Dashboard
+        Overview</h1>
+    <p style="margin: 5px 0 0; color: var(--text-secondary);">Welcome back, here's what's happening today.</p>
+</header>
+
+<div
+    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+    <div class="card"
+        style="padding: 1.5rem; margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;">
+        <div style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">Total
+            Projects</div>
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--text-main);">{{ total_projects }}</div>
+    </div>
+    <div class="card"
+        style="padding: 1.5rem; margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;">
+        <div style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">Total
+            Downloads</div>
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--text-main);">
+            {{ total_downloads }}
+            <span
+                style="font-size: 0.9rem; color: #10b981; background: #d1fae5; padding: 2px 8px; border-radius: 20px; font-weight: 600; vertical-align: middle; margin-left: 8px;">Live</span>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div
+        style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0; font-size: 1.1rem; font-weight: 700;">Recent Downloads</h3>
+        <a href="{% url 'admin_downloads' %}"
+            style="color: var(--primary); font-weight: 600; text-decoration: none; font-size: 0.9rem;">View All →</a>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Project</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in recent_downloads %}
+                <tr>
+                    <td style="font-weight: 600;">{{ record.name }}</td>
+                    <td>{{ record.project.title|truncatechars:30 }}</td>
+                    <td>{{ record.downloaded_at|date:"M d, Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" style="text-align: center;">No downloads yet</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card">
+    <div
+        style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0; font-size: 1.1rem; font-weight: 700;">Recent Projects</h3>
+        <a href="{% url 'admin_projects' %}"
+            style="color: var(--primary); font-weight: 600; text-decoration: none; font-size: 0.9rem;">View All →</a>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in recent_projects %}
+                <tr>
+                    <td style="font-weight: 600;">{{ project.title }}</td>
+                    <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis;">{{
+                        project.description|truncatechars:100 }}</td>
+                    <td>{{ project.created_at|date:"M d, Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" style="text-align: center;">No projects yet</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Zerazone Admin{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Palette */
+            --primary: #0e5068;
+            --primary-light: #126887;
+            --primary-dark: #093b4d;
+            --secondary: #17cfbc;
+            --accent: #f43f5e;
+
+            /* Backgrounds */
+            --bg-body: #f8fafc;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --bg-card: #ffffff;
+
+            /* Text */
+            --text-main: #0f172a;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+
+            /* Effects */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-glow: 0 0 15px rgba(23, 207, 188, 0.3);
+
+            --radius-md: 12px;
+            --radius-lg: 16px;
+
+            --sidebar-width: 280px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            color: var(--text-main);
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+        }
+
+        /* Sidebar - Glassmorphism */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--bg-card);
+            border-right: 1px solid rgba(226, 232, 240, 0.8);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 50;
+            transition: var(--transition);
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.03em;
+            padding-left: 0.5rem;
+        }
+
+        .brand i {
+            color: var(--secondary);
+            font-size: 1.25rem;
+            filter: drop-shadow(0 0 5px rgba(23, 207, 188, 0.4));
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 0.95rem;
+            gap: 16px;
+            border: 1px solid transparent;
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            background-color: #f0fdfa;
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            box-shadow: 0 8px 20px -6px rgba(14, 80, 104, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active i {
+            color: var(--secondary);
+        }
+
+        .user-profile {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: auto;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .user-profile:hover {
+            background: white;
+            border-color: #e2e8f0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #0e5068, #17cfbc);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(14, 80, 104, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2.5rem 3rem;
+            width: 100%;
+            max-width: 1600px;
+            margin-right: auto;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Components */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 0.85rem 1.75rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(14, 80, 104, 0.25);
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(14, 80, 104, 0.35);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: rgba(226, 232, 240, 1);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            white-space: nowrap;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        /* Mobile Toggle */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 40;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+        }
+
+        .mobile-brand {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .toggle-btn:active {
+            background: #f1f5f9;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: 20px 0 50px rgba(0, 0, 0, 0.1);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1.5rem;
+                padding-top: 6rem;
+                /* Space for mobile header */
+            }
+
+            .mobile-header {
+                display: flex;
+            }
+
+            .backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(14, 80, 104, 0.4);
+                /* Primary color dim */
+                backdrop-filter: blur(4px);
+                z-index: 45;
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .backdrop.show {
+                display: block;
+                opacity: 1;
+            }
+
+            th,
+            td {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .main-content {
+                padding: 1rem;
+                padding-top: 5.5rem;
+            }
+
+            /* Responsive Header Actions */
+            header {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 1.25rem;
+                margin-bottom: 2rem !important;
+            }
+
+            header div {
+                width: 100%;
+            }
+
+            .page-title {
+                font-size: 1.5rem !important;
+            }
+
+            /* Full Width Buttons on Mobile */
+            .btn-primary,
+            .btn,
+            button[type="submit"] {
+                width: 100% !important;
+                justify-content: center;
+                padding: 1rem;
+                font-size: 1rem;
+                height: auto;
+                /* Prevent fixed height issues */
+                margin-left: 0 !important;
+                /* Reset any margins */
+            }
+
+            .card {
+                border-radius: 12px;
+                margin-bottom: 1.5rem;
+                border: none;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            }
+
+            /* Better Table Scrolling Hint */
+            .table-responsive {
+                position: relative;
+            }
+
+            .table-responsive::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                width: 20px;
+                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8));
+                pointer-events: none;
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <div class="backdrop" id="backdrop"></div>
+
+    <div class="mobile-header">
+        <div class="mobile-brand">
+            <i class="fas fa-layer-group" style="color: var(--secondary);"></i>
+            ZERAZONE
+        </div>
+        <button class="toggle-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <i class="fas fa-layer-group"></i>
+            ZERAZONE
+        </div>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="{% url 'custom_dashboard' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'custom_dashboard' %}active{% endif %}">
+                    <i class="fas fa-chart-pie"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'admin_projects' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'admin_projects' %}active{% endif %}">
+                    <i class="fas fa-folder-open"></i>
+                    Projects
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'admin_downloads' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'admin_downloads' %}active{% endif %}">
+                    <i class="fas fa-download"></i>
+                    Downloads
+                </a>
+            </li>
+            <div style="margin: 1rem 0; border-top: 1px solid var(--border);"></div>
+            <li class="nav-item">
+                <a href="{% url 'projects' %}" target="_blank" class="nav-link">
+                    <i class="fas fa-external-link-alt"></i>
+                    View Website
+                </a>
+            </li>
+        </ul>
+        <div class="user-profile">
+            <div class="avatar">{{ user.username|make_list|first|upper }}</div>
+            <div style="overflow: hidden;">
+                <div
+                    style="font-size: 0.9rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    {{ user.username|title }}</div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary);">Super Admin</div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('backdrop').classList.toggle('show');
+        }
+        document.getElementById('backdrop').addEventListener('click', toggleSidebar);
+    </script>
+</body>
+
+</html>

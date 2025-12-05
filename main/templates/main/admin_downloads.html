@@ -1,0 +1,56 @@
+{% extends 'main/base_admin.html' %}
+
+{% block title %}Downloads | Zerazone{% endblock %}
+
+{% block content %}
+<header
+    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; animation: fadeIn 0.6s ease-out;">
+    <div>
+        <h1 class="page-title" style="font-size: 1.75rem; font-weight: 700; color: var(--text-main); margin: 0;">
+            Downloads</h1>
+        <p style="margin: 5px 0 0; color: var(--text-secondary);">Track who is downloading your project abstracts.</p>
+    </div>
+    <a href="{% url 'export_records_csv' %}" class="btn-primary" style="background-color: var(--primary);">Export All to
+        CSV</a>
+</header>
+
+<div class="card">
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>College</th>
+                    <th>Project</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in downloads %}
+                <tr>
+                    <td style="font-weight: 600;">{{ record.name }}</td>
+                    <td>{{ record.email }}</td>
+                    <td style="color: var(--text-secondary);">{{ record.phone }}</td>
+                    <td>{{ record.college|default:"-" }}</td>
+                    <td>
+                        <span
+                            style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
+                            {{ record.project.title|truncatechars:30 }}
+                        </span>
+                    </td>
+                    <td>{{ record.downloaded_at|date:"M d, Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                        No download records found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

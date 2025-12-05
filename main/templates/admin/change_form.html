@@ -1,0 +1,42 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    .form-row {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-row label {
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-row input,
+    .form-row textarea,
+    .form-row select {
+        border-radius: var(--border-radius-sm);
+        border: 1px solid var(--border-color);
+        padding: 0.75rem;
+        transition: var(--transition);
+    }
+    
+    .form-row input:focus,
+    .form-row textarea:focus,
+    .form-row select:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 3px rgba(23, 207, 188, 0.1);
+    }
+    
+    .submit-row {
+        background: var(--bg-tertiary);
+        padding: 1rem 1.5rem;
+        border-radius: var(--border-radius-sm);
+        margin-top: 2rem;
+    }
+</style>
+{% endblock %}
+
